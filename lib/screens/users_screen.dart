@@ -95,7 +95,7 @@ class UserDataTableSource extends DataTableSource {
   // Variables
   final List<DocumentSnapshot> _databaseUsers = AppModel().users;
   late BuildContext context;
-  List<DocumentSnapshot> _users = [];
+  List<dynamic> _users = [];
 
   // Constructor
   UserDataTableSource() {
@@ -172,42 +172,41 @@ class UserDataTableSource extends DataTableSource {
   @override
   DataRow getRow(int index) {
     /// Get User object
-    // final User user = User.fromDocument(_users[index].data()!);
+    final User user = User.fromDocument(_users[index].data()!);
 
     return DataRow.byIndex(index: index, cells: [
-      // User profile photo
-      // DataCell(
-      //   CircleAvatar(
-      //     backgroundColor: Colors.pink,
-      //     backgroundImage: NetworkImage(user.userProfilePhoto),
-      //   ),
-      //   onTap: () {
-      //     // View user profile
-      //     _viewProfile(user);
-      //   },
-      // ),
-      // // User full name
-      // DataCell(Text(user.userFullname)),
-      // // User Gender
-      // DataCell(Text(user.userGender)),
-      // // User country
-      // DataCell(Text(user.userCountry)),
-      // // User city
-      // DataCell(Text(user.userLocality)),
-      // // User User ID
-      // DataCell(Text(_cutUserID(user.userId))),
-      // // User Status
-      // DataCell(UserStatus(status: user.userStatus)),
-      // // Button actions
-      // DataCell(
-      //   IconButton(
-      //     icon: Icon(Icons.remove_red_eye_outlined, color: Colors.grey),
-      //     onPressed: () {
-      //       // View user profile
-      //       _viewProfile(user);
-      //     },
-      //   ),
-      // ),
+      DataCell(
+        CircleAvatar(
+          backgroundColor: Colors.pink,
+          backgroundImage: NetworkImage(user.userProfilePhoto),
+        ),
+        onTap: () {
+          // View user profile
+          _viewProfile(user);
+        },
+      ),
+      // User full name
+      DataCell(Text(user.userFullname)),
+      // User Gender
+      DataCell(Text(user.userGender)),
+      // User country
+      DataCell(Text(user.userCountry)),
+      // User city
+      DataCell(Text(user.userLocality)),
+      // User User ID
+      DataCell(Text(_cutUserID(user.userId))),
+      // User Status
+      DataCell(UserStatus(status: user.userStatus)),
+      // Button actions
+      DataCell(
+        IconButton(
+          icon: Icon(Icons.remove_red_eye_outlined, color: Colors.grey),
+          onPressed: () {
+            // View user profile
+            _viewProfile(user);
+          },
+        ),
+      ),
     ]);
   }
 

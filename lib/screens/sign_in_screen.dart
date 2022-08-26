@@ -1,10 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app_dashboard/constants/constants.dart';
+import 'package:dating_app_dashboard/datas/app_info.dart';
+import 'package:dating_app_dashboard/datas/user.dart';
 import 'package:dating_app_dashboard/models/app_model.dart';
 import 'package:dating_app_dashboard/screens/dashboard.dart';
 import 'package:dating_app_dashboard/widgets/app_logo.dart';
 import 'package:dating_app_dashboard/widgets/default_button.dart';
 import 'package:dating_app_dashboard/widgets/default_card_border.dart';
 import 'package:dating_app_dashboard/widgets/show_scaffold_msg.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 
@@ -21,8 +25,37 @@ class _SignInScreenState extends State<SignInScreen> {
   final _passController = TextEditingController();
   bool _obscurePass = true;
 
+
+
+  // static Future<User?> loginUsingEmailPassword( String email,  String password,  BuildContext context) async{
+  //   FirebaseAuth auth = FirebaseAuth.instance;
+  //   User? user;
+  //   try{
+  //     UserCredential userCredential = await auth.signInWithEmailAndPassword(
+  //         email: email, password: password)
+  //   }
+  // }
+
+
+
   @override
   Widget build(BuildContext context) {
+
+
+    FirebaseAuth? _auth;
+
+    final firestore = FirebaseFirestore.instance;
+
+
+
+    // Future<List> fetchAllContact() async {
+    //   List contactList = [];
+    //   DocumentSnapshot documentSnapshot =
+    //   await firestore.collection('AppInfo').doc('settings').get();
+    //   contactList = documentSnapshot.data()!['admin_username'];
+    //   return contactList;
+    // }
+
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Theme.of(context).primaryColor,
@@ -114,32 +147,56 @@ class _SignInScreenState extends State<SignInScreen> {
                             child: DefaultButton(
                               child:
                                   Text("Sign In", style: TextStyle(fontSize: 18)),
-                              onPressed: () {
+                              onPressed: () async{
                                 /// Validate form
-                                if (_formKey.currentState!.validate()) {
 
-                                    // Admin sign in 
-                                    AppModel().adminSignIn(
-                                      username: _usernameController.text.trim(), 
-                                      password: _passController.text.trim(), 
-                                      onSuccess: () {
-                                        /// Go to dashboard
-                                        Future(() {
-                                          Navigator.of(context).pushReplacement(
-                                            new MaterialPageRoute(
-                                              builder: (context) => Dashboard()));
-                                        });
-                                      }, 
-                                      onError: () {
-                                        // Show error message
-                                        showScaffoldMessage(
-                                            context: context,
-                                            scaffoldkey: _scaffoldKey,
-                                            bgcolor: Colors.black,
-                                            message: "Username or Password is invalid.\nPlease try again!");
-                                      }
-                                  );
+
+                                String username = _usernameController.text.trim();
+                                String password = _passController.text.trim();
+
+                                QuerySnapshot snap = await FirebaseFirestore.instance.collection("AppInfo")
+                                .where('admin_username', isEqualTo: username).get();
+
+                                QuerySnapshot snaps = await FirebaseFirestore.instance.collection("AppInfo")
+                                .where('admin_password', isEqualTo: password).get();
+
+                                print(snap.docs[0]['admin_username']);
+                                print(snaps.docs[0]['admin_password']);
+
+                                Navigator.of(context).pushReplacement(
+                                    new MaterialPageRoute(
+                                        builder: (context) => Dashboard()));
+                                showScaffoldMessage(
+                                    context: context,
+                                    scaffoldkey: _scaffoldKey,
+                                    message: "Admin sign in successfully!");
+
+
+/*
+
+                                final String username = _usernameController.text.trim();
+                                final String password = _passController.text.trim();
+
+                                if(username.isEmpty){
+                                  print("Username is Empty");
+                                } else {
+                                  if(password.isEmpty){
+                                    print("Password is Empty");
+                                  } else {
+
+
+
+
+                                    QuerySnapshot snap = await FirebaseFirestore.instance.collection("AppInfo")
+                                        .where("admin_username ", isEqualTo: username).get();
+                                    AppModel().login(
+                                      snap.docs[0]['settings'][0]['admin_username'],
+                                      password,
+                                    );
+                                  }
                                 }
+*/
+
                               },
                             ),
                           ),
@@ -155,4 +212,7 @@ class _SignInScreenState extends State<SignInScreen> {
       ),
     );
   }
+
 }
+
+

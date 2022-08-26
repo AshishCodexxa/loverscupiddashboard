@@ -1,6 +1,6 @@
 import 'dart:convert';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app_dashboard/constants/constants.dart';
 import 'package:dating_app_dashboard/datas/app_info.dart';
@@ -15,6 +15,7 @@ class AppModel extends Model {
   List<DocumentSnapshot> users = [];
   int sortColumnIndex = 0;
   bool sortAscending = true;
+  FirebaseAuth? _auth;
 
   /// Create Singleton factory for [AppModel]
   ///
@@ -24,6 +25,8 @@ class AppModel extends Model {
   }
   AppModel._internal();
   // End
+
+
 
   /// Admin sign in method
   void adminSignIn({
@@ -47,6 +50,7 @@ class AppModel extends Model {
       // Access denied
       onError();
     }
+
   }
 
   /// Get App Settings from database => Stream
