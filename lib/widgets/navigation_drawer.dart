@@ -121,7 +121,8 @@ Widget _drawerHeader(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         /// App logo
-        AppLogo(),
+        Image(image: AssetImage("assets/images/signin_logo.png"),
+        height: 150,),
         SizedBox(height: 10),
         Text(APP_NAME,
             style: TextStyle(

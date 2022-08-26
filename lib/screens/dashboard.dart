@@ -23,7 +23,7 @@ class _DashboardState extends State<Dashboard> {
     // Listen updates
     _appInfo.listen((appEvent) {
       // Update AppInfo object
-      // AppModel().updateAppObject(appEvent.data()!);
+      AppModel().updateAppObject(appEvent.data()!);
     });
   }
 
@@ -48,7 +48,7 @@ class _DashboardState extends State<Dashboard> {
       field = USER_IS_VERIFIED;
       status = true;
     }
-    return users.where((user) => user[field] == status).toList().length;
+    return users.where((user) => user.data()![field] == status).toList().length;
   }
 
   @override
