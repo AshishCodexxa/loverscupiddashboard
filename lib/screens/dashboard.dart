@@ -14,7 +14,7 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   // Variables
-  late Stream<DocumentSnapshot> _appInfo;
+  late Stream<dynamic> _appInfo;
   Stream<QuerySnapshot>? _users;
 
   /// Get AppInfo Stream to update UI after changes
@@ -48,7 +48,7 @@ class _DashboardState extends State<Dashboard> {
       field = USER_IS_VERIFIED;
       status = true;
     }
-    return users.where((user) => user.data()![field] == status).toList().length;
+    return users.where((user) => user.data() == status).toList().length;
   }
 
   @override
@@ -159,6 +159,7 @@ class _DashboardState extends State<Dashboard> {
                         totalFlaggedUsers: totalFlaggedUsers,
                         totalBlockedUsers: totalBlockedUsers,
                       ),
+
                     ],
                   ),
                 );
