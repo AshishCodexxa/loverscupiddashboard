@@ -152,12 +152,20 @@ class _DashboardState extends State<Dashboard> {
                       ),
 
                       /// Show Pie Chart Statistic
-                      UsersPieChart(
+                     /* UsersPieChart(
                         totalUsers: users.length,
                         totalActiveUsers: totalActiveUsers,
                         totalVerifiedUsers: totalVerifiedUsers,
                         totalFlaggedUsers: totalFlaggedUsers,
                         totalBlockedUsers: totalBlockedUsers,
+                      ),*/
+
+                      UsersPieChart(
+                        totalUsers: 4,
+                        totalActiveUsers: 4,
+                        totalVerifiedUsers: 2,
+                        totalFlaggedUsers: 5,
+                        totalBlockedUsers: 3,
                       ),
 
                     ],

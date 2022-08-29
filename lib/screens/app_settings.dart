@@ -117,8 +117,8 @@ class _AppSettingsState extends State<AppSettings> {
               children: [
                 // Android Version Control
                 AppVersionControl(
-                  title: 'Android App Version Control',
-                  subtitle: 'Google Play - App Current Version Number',
+                  title: /*'Android App Version Control'*/"",
+                  subtitle: /*'Google Play - App Current Version Number'*/"",
                   appVersion: _androidCurrentVersion,
                   onDecrement: _decrementAndroidVersion,
                   onIncrement: _incrementAndroidVersion
@@ -128,8 +128,8 @@ class _AppSettingsState extends State<AppSettings> {
 
                 // iOS App Version Control
                 AppVersionControl(
-                  title: 'iOS App Version Control',
-                  subtitle: 'App Store - Current Version Number',
+                  title: /*'iOS App Version Control'*/"",
+                  subtitle: /*'App Store - Current Version Number'*/"",
                   appVersion: _iosCurrentVersion,
                   onDecrement: _decrementIOSversion,
                   onIncrement: _incrementIOSversion
