@@ -11,6 +11,7 @@ class UsersPieChart extends StatefulWidget {
   final int totalBlockedUsers;
 
   // Constructor
+
   const UsersPieChart(
       {required this.totalUsers,
       required this.totalActiveUsers,
